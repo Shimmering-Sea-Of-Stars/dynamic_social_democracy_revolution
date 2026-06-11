@@ -45,8 +45,10 @@ if (Q.spd_in_government && Q.chancellor_party == "SPD") {
 Q.rfb_power = Q.rfb_strength*Q.rfb_militancy;
 if (Q.kpd_relation >= 60) {
     Q.total_power += Q.rfb_power;
+    Q.kpd_revsupport = 1;
 } else if (Q.kpd_relation >= 45) {
     Q.total_power += Q.rfb_power*0.5;
+     Q.kpd_revsupport = 0;
 }
 // general strike strength
 // maximum (given 25 labor strength) is 400
