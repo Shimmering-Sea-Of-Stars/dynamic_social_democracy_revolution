@@ -1,0 +1,62 @@
+title: Revolutionary Government Established
+subtitle: We are victorious, but now what?
+tags: event
+
+= The German Revolutionary Government
+
+We have successfully overthrown the reactionary government! We must move quickly to transform German society and lay the foundations of a new political system.
+
+[? if Q.kpd_revsupport == 1: The <span style="color: #700000;">**KPD**</span> fought alongside us during the revolutionary struggle, and expect us to cooperate with them as we implement new policies. ?]
+[? if Q.kpd_revsupport == 0: The <span style="color: #700000;">**KPD**</span> took up arms during the revolution, but do not trust us. We will have to either convince them to lay down their arms or suppress them by force. ?]
+[? if sapd_formed: The <span style="color: #9B0000;">**SAPD**</span> fully support the revolution, and hope we will pursue <span style="color: #9B0000;">**radical**</span> social change. ?]
+
+- @rev_gov: Government Structure
+- @rev_elections: Elections
+- @rev_opposition: Stance Towards Opposition Parties
+- @rev_economy: Economic Policy
+- @rev_army: Status of the Reichswehr
+- @rev_communists: Dealing with the Communists
+
+@rev_gov
+max-visits: 1
+
+With the old political system swept away, we are free to alter Germany's institutions of government as we see fit.
+
+- @anarchy: Abolish the state entirely!
+- @councils: Create a federated system of worker councils!
+- @centralize: Create a centralized people's republic modelled on the Soviet Union!
+- @reform: Reform the existing democratic system to make it more progressive!
+- @maintain: Maintain the existing democratic system to ensure stability!
+
+@anarchy
+unavailable-subtitle: We are not anarchists.
+choose-if: 0;
+
+@councils
+subtitle: Supported by: Left, Labor, KPD, [? if sapd_formed: SAPD ?].
+on-arrival: Q.council_system = 1; left_dissent += 15; labor_dissent += 10; kpd_relation += 10; workers_spd += 10; workers_kpd += 10; [? if sapd_formed: workers_sapd += 10; ?] reformist_dissent -= 20; z_relation -= 20; dvp_relation -= 20; ddp_relation -= 15;
+
+We have endorsed and recognized the formation of worker councils throughout Germany, and our government has set to work organizing them into a federated governing body. Radical leftists and workers are pleased, while moderates are deeply concerned.
+
+go-to: civil_war_victory.scene.dry
+  
+@centralize
+subtitle: Supported by: KPD.
+unavailable-subtitle: There is no support for this outside of the KPD, who do not trust us.
+choose-if: Q.kpd_revsupport == 1;
+on-arrival: Q.soviet_system = 1; kpd_relation += 30; center_dissent -= 10; labor dissent -= 10; reformist_dissent -= 30; z_relation -= 50; dvp_relation -= 50; ddp_relation -= 50;
+
+We have established a people's republic with a similar structure to that of the Soviet Union, much to the delight of the KPD and the dismay of everyone else, including most of our own party.
+
+go-to: civil_war_victory.scene.dry
+
+@reform:
+subtitle: Supported by: Center, Reformists.
+on-arrival: Q.reformed_system = 1; center_dissent += 10; reformist_dissent += 30; ddp_relation += 15; z_relation += 5; left_dissent -= 10; kpd_relation -= 10;
+
+We have reformed Germany's parliamentary system to reflect genuine democratic and republican values. The KPD and our party's left-wing are disapointed, but our centrist and reformist members are pleased. The bourgeois parties are cautiously optimistic about our apparent self-restraint.
+go-to: civil_war_victory.scene.dry
+
+
+@maintain
+subtitle: Supported by: Reformists, Bourgeois Parties.
